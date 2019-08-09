@@ -1,0 +1,13 @@
+Linux简介
+	1、支持32位和64位硬件
+	2、发行家族包括
+		Debian(Ubuntu-->Linux Mint)
+		Fedora(RHEL-->CentOS/Oracle Linux)
+		SUSE(SLES-->OpenSUSE)
+	3、服务器一般使用
+		LAMP组合(Linux+Apache+MySQL+PHP)
+		LNMP组合(Linux+Nginx+MySQL+PHP)
+
+Linux启动过程
+	内核引导：从/boot目录读取内核文件
+	运行Init：
