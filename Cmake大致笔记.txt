@@ -1,0 +1,38 @@
+https://blog.csdn.net/afei__/article/details/81201039
+
+Cmake简介
+	1、Cmake是一个构建系统，是集软件构建、测试、打包功能于一身的软件。
+	2、Cmake特点：跨平台、开源，使用与平台和编译器独立的配置文件来对软件编译过程进行控制。
+
+Cmake常用指令
+  	《1》cmake_minimum_required(VERSION 3.4.1)
+		可选命令，指定cmake的最小版本。若CMakeLists.txt文件使用了一些高版本cmake命令，
+		就需加上这一行，提醒升级cmake版本
+	《2》project(demo)
+		非强制性命令，设置项目名称。它会引入两个变量demo_BINARY_DIR和demo_SOURCE_DIR，
+		同时cmake自动定义了两个等价的变量PROJECT_BINARY_DIR和PROJECT_SOURCE_DIR
+	《3》add_executable(demo demo.cpp)		#生成可执行文件，Linux下是demo，windows下是demo.exe
+	        add_library(common STATIC util.cpp)	#生成静态库，Linux下是libcommon.a，windows下是common.lib
+	        add_library(common SHARED util.cpp)	#生成动态库或共享库Linux下是libcommon.so，windows下是
+		add_library默认生成静态库，通过以上命令生成文件名字
+	《4》指定编译包含的源文件
+	        	《4.1》明确指定包含哪些源文件
+	        		add_library(demo demo.cpp test.cpp util.cpp)	#明确指定编译包含哪些源文件
+	               	《4.2》搜索所有.cpp文件
+	        		aux_source_directory(. SRC_LIST)	#搜索当前目录下的所有源代码文件，并将列表存储在SRC_LIST变量中
+	        		add_library(demo ${SRC_LIST})	#指定编译包含的源文件为SRC_LIST变量代表的源代码文件列表
+		《4.3》自定义搜索规则
+	        		file(GLOB SRC_LIST "*.cpp" "protocol/*.cpp")
+			add_library(demo ${SRC_LIST})
+				#等价于
+			file(GLOB SRC_LIST "*..cpp")
+			file(GLOB SRC_PROTOCOL_LIST "protocol/*.cpp")
+			add_library(demo ${SRC_LIST} ${SRC_PROTOCOL_LIST})
+				#等价于
+			aux_source_directory(. SRC_LIST)
+			aux_source_directory(protocol SRC_PROTOCOL_LIST)
+			add_library(demo ${SRC_LIST} ${SRC_PROTOCOL_LIST})
+			
+	《5》查找制定库文件
+		find_library(name path)	#查找path
+		
